@@ -15,19 +15,19 @@ import org.junit.Test;
  public class ViagemServiceTest {
 
     @Test
-    public void devePreencherOrigem() {
+    public void devePreencherOrigem() throws Exception {
         ViagemService rota = new ViagemService();
         rota.setViagem("ABC-DEF");
         assertTrue(rota.getOrigem().equals("ABC"));
     }
     @Test
-    public void devePReencherDestino() {
+    public void devePReencherDestino()  throws Exception{
         ViagemService rota = new ViagemService();
         rota.setViagem("ABC-DEF");
         assertTrue(rota.getDestino().equals("DEF"));
     }
     @Test(expected = Exception.class)
-    public void deveLancaExceptionQuandoStringEstaIncorreta() {
+    public void deveLancaExceptionQuandoStringEstaIncorreta()  throws Exception{
         new ViagemService("").setViagem("abcdef");;
     }
 
@@ -44,7 +44,7 @@ import org.junit.Test;
     }
 
     @Test
-    public void shouldCalcRoute() {
+    public void shouldCalcRoute() throws Exception {
         ViagemService rota = new ViagemService("src/test/resources/com/bernardolobato/backendtest/rotas.csv");
         rota.setViagem("GRU-CDG");
         List<Rota> rotas = rota.getMelhorRota();

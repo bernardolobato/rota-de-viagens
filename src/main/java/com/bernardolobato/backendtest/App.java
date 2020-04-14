@@ -22,12 +22,16 @@ public class App
                     s.close();
                     System.exit(0);
                 }
-                viagem.setViagem(route);
-                List<Rota> rotas = viagem.getMelhorRota();
-                rotas.forEach(r->{
-                    System.out.println(r.toString());
-                });
-                System.out.println("Total Cost: " + viagem.getCustoTotal());
+                try {
+                    viagem.setViagem(route);
+                    List<Rota> rotas = viagem.getMelhorRota();
+                    rotas.forEach(r->{
+                        System.out.println(r.toString());
+                    });
+                    System.out.println("Total Cost: " + viagem.getCustoTotal());
+                } catch(Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
 }

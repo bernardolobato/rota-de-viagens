@@ -5,28 +5,36 @@ import java.util.List;
 import com.bernardolobato.backendtest.core.Rota;
 import com.bernardolobato.backendtest.core.ViagemService;
 
+import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.plugin.openapi.annotations.HttpMethod;
 import io.javalin.plugin.openapi.annotations.OpenApi;
 import io.javalin.plugin.openapi.annotations.OpenApiContent;
+import io.javalin.plugin.openapi.annotations.OpenApiParam;
 import io.javalin.plugin.openapi.annotations.OpenApiRequestBody;
 
 public class ViagemController {
 
     @OpenApi(
-        path = "/melhor-rota",
-        method = HttpMethod.POST,
+        path = "/melhor-rota/:viagem",
+        method = HttpMethod.GET,
         summary = "Devolve a melhor rota dada uma determinada viagem",
-        requestBody =  @OpenApiRequestBody(content = @OpenApiContent(from = Rota.class))
+        pathParams = {
+            @OpenApiParam(name = "viagem", description = "A viagem que desejamos consultar, no formato: ORG-DES. Por exemplo: GRU-CGD")
+        }
     )
     public static void melhorRota(Context ctx) {
-        ctx.use(ViagemService.class).setViagem(ctx.pathParam("viagem"));            
+        try {
+            ctx.use(ViagemService.class).setViagem(ctx.pathParam("viagem"));            
             ctx.json(new Object() {
                 @SuppressWarnings("unused")
                 public List<Rota> rotas = ctx.use(ViagemService.class).getMelhorRota();
                 @SuppressWarnings("unused")
                 public int custoTotal = ctx.use(ViagemService.class).getCustoTotal();
             });
+        } catch(Exception e) {
+            throw new BadRequestResponse(e.getMessage());
+        }
     }
 
 

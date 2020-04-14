@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import com.bernardolobato.backendtest.core.estrutura.Grafo;
 import com.bernardolobato.backendtest.repositorio.ViagemRepositorio;
 
+import kotlin.jvm.Throws;
+
 
 public class ViagemService {
     private String origem;
@@ -31,10 +33,17 @@ public class ViagemService {
         );
     }
 
-    public void setViagem(String info) {
+    public void setViagem(String info) throws Exception {
         String[] parsed = info.split("-");
+        if (this.grafoRotas.acharVertice(parsed[0]) == null){
+            throw new Exception("A Origem informada nao existe nas rotas carregadas");
+        }
+        if (this.grafoRotas.acharVertice(parsed[1]) == null) {
+            throw new Exception("O destino informado nao existe nas rotas carregadas");
+        }
         this.origem = parsed[0];
         this.destino = parsed[1];
+
     }
 
     public String getOrigem() {
