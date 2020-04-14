@@ -1,4 +1,4 @@
-# Rota de Viagem - Solução#
+# Rota de Viagem - Solução #
 ## Consideraçoes ##
 * O problema apresentado pode ser entendido como uma variação do problema do caixeiro viajante, estudado em teoria dos grafos. Dessa forma, foi feita uma implementação simplificada da estrutura dessa estrutura de dados.
 * Para cálculo da melhor rota foi feita uma implementaçao do algoritmo de Djikstra, que devolve um novo grafo com a rota de menor custo.
